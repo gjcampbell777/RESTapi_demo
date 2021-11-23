@@ -3,7 +3,7 @@ require('dotenv').config({ path: 'development.env' });
 const express = require('express');
 const routes = require('./routes/msg'); //import the routes
 const mongoose = require('mongoose'); //import mongoose
-const helemt = require('helmet'); //import helmet
+const helmet = require('helmet'); //import helmet
 const compression = require('compression'); //import compression
 
 const app = express();
@@ -12,10 +12,6 @@ app.use(compression()); //compress all routes
 
 mongoose.connect(
     process.env.MONGODB_URI,
-    {
-	    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
-		replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } },
-    },
     (err) => {
         if (err) return console.log("Error: ", err);
         console.log("MongoDB Connection -- Ready state is:", mongoose.connection.readyState);
