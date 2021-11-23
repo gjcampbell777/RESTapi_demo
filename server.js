@@ -26,7 +26,8 @@ app.use(express.json()); //parses incoming requests with JSON payloads
 
 app.use('/', routes); //to use the routes
 
-app.route('/')
+//Index page (static HTML)
+app.route("/")
   .get(function (req, res) {
     res.sendFile(process.cwd() + '/index.html');
 });
