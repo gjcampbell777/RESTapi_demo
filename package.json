@@ -1,0 +1,36 @@
+{
+  "name": "restapi_demo",
+  "version": "1.0.0",
+  "description": "REST api written with express and run with heroku",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gjcampbell777/RESTapi_demo.git"
+  },
+  "keywords": [
+    "js",
+    "express",
+    "node",
+    "heroku",
+    "rest",
+    "api"
+  ],
+  "author": "Gregory Campbell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gjcampbell777/RESTapi_demo/issues"
+  },
+  "homepage": "https://github.com/gjcampbell777/RESTapi_demo#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "mongoose": "^6.0.13",
+    "multer": "^1.4.3"
+  }
+}
