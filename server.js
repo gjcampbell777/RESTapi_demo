@@ -5,6 +5,7 @@ const routes = require('./routes/msg'); //import the routes
 const mongoose = require('mongoose'); //import mongoose
 const helmet = require('helmet'); //import helmet
 const compression = require('compression'); //import compression
+const morgan = require('morgan') //import morgan
 
 const app = express();
 app.use(helmet());
@@ -19,6 +20,7 @@ mongoose.connect(
 );
 
 app.use(express.json()); //parses incoming requests with JSON payloads
+app.use(morgan('combined')) //prints logging when requests are made
 
 app.use('/', routes); //to use the routes
 
