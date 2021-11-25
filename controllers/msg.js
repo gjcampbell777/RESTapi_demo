@@ -13,15 +13,18 @@ const getAllMsg = (req, res) => {
 
 //POST message
 const newMsg = (req, res) => {
-    //check if the id already exists in db
-    Msg.findOne({ id: req.body.id }, (err, data) => {
+    let id = req.params.id; //get the msg id
+    let msg = req.params.message; //get the msg message
 
-        //if tea not in db, add it
+    //check if the id already exists in db
+    Msg.findOne({ id:id }, (err, data) => {
+
+        //if this message is not in db, add it
         if (!data) {
-            //create a new tea object using the Msg model and req.body
+            //create a new msg object using the Msg model and req.params
             const newMsg = new Msg({
-                id:req.body.id,
-                message: req.body.message,
+                id:id,
+                message:msg,
                 time: Date.now(),
             })
 
