@@ -81,7 +81,7 @@ const updateMsg = (req, res) => {
                 time: Date.now(),
             })
 
-            Msg.deleteOne({id:id}, (err, data) => {
+            Msg.deleteOne({id:id}, (err) => {
             //if there's an error, return the err message
             if (err) return res.json(`Something went wrong, please try again. ${err}`);
             });
