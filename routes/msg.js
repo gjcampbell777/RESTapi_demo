@@ -12,8 +12,8 @@ router.get('/msg', msgController.getAllMsg);
 router.delete('/msg', msgController.deleteAllMsg);
 
 router.get('/msg/:id', msgController.getOneMsg);
-router.post('/msg/:id/:message', msgController.newMsg);
-router.put('/msg/:id/:message', msgController.updateMsg);
+router.post('/msg/:id', msgController.newMsg);
+router.put('/msg/:id', msgController.updateMsg);
 router.delete('/msg/:id', msgController.deleteOneMsg);
 
 module.exports = router; //export to use in server.js

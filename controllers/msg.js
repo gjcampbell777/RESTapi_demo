@@ -22,7 +22,7 @@ const newMsg = (req, res) => {
             //create a new msg object using the Msg model and req.params
             const newMsg = new Msg({
                 id:req.params.id,
-                message:req.params.message,
+                message:req.body.message,
                 time: Date.now(),
             })
 
@@ -65,7 +65,7 @@ const getOneMsg = (req, res) => {
 const updateMsg = (req, res) => {
 
     //check if the id already exists in db
-    Msg.findOneAndUpdate({id:req.params.id}, {message:req.params.message}, {new: true}, (err, data) => {
+    Msg.findOneAndUpdate({id:req.params.id}, {message:req.body.message}, {new: true}, (err, data) => {
 
         //if this message is in db, update it
         if (data) {
