@@ -54,10 +54,12 @@ const getOneMsg = (req, res) => {
 
     //find the specific msg with that id
     Msg.findOne({id:req.params.id}, (err, data) => {
-    if(err || !data) {
-        return res.status(400).json({message: "Message can't be found, it doesn't exist."});
-    }
-    else return res.status(200).json(data); //return the msg object if found
+        if(data) {
+            return res.status(200).json(data);
+        }else{
+            if(err) return res.status(404).json(`Something went wrong, please try again. ${err}`);
+            return res.status(400).json({message: "Message can't be found, it doesn't exist."});
+        }  
     });
 };
 
