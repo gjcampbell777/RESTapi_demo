@@ -36,7 +36,7 @@ const newMsg = (req, res) => {
         //if there's an error or the msg is in db, return an error message         
         }else{
             if(err) return res.json(`Something went wrong, please try again. ${err}`);
-            return res.json({message:"Msg already exists"});
+            return res.json({message:"Message already exists"});
         }
     })    
 };
@@ -64,6 +64,41 @@ const getOneMsg = (req, res) => {
     });
 };
 
+//PUT message based on id
+const updateMsg = (req, res) => {
+    let id = req.params.id; //get the msg id
+    let msg = req.params.message; //get the msg message
+
+    //check if the id already exists in db
+    Msg.findOne({ id:id }, (err, data) => {
+
+        //if this message is not in db, add it
+        if (data) {
+            //create a new msg object using the Msg model and req.params
+            const newMsg = new Msg({
+                id:id,
+                message:msg,
+                time: Date.now(),
+            })
+
+            Msg.deleteOne({id:id}, (err, data) => {
+            //if there's an error, return the err message
+            if (err) return res.json(`Something went wrong, please try again. ${err}`);
+            });
+
+            // save this object to database
+            newMsg.save((err, data)=>{
+                if(err) return res.json({Error: err});
+                return res.json(data);
+            })
+        //if there's an error or the msg is in db, return an error message         
+        }else{
+            if(err) return res.json(`Something went wrong, please try again. ${err}`);
+            return res.json({message:"Message doesn't exists"});
+        }
+    })    
+};
+
 //DELETE message based on id
 const deleteOneMsg = (req, res) => {
     let id = req.params.id; // get the id of msg to delete
@@ -84,5 +119,6 @@ module.exports = {
 	newMsg,
 	deleteAllMsg,
 	getOneMsg,
+    updateMsg,
 	deleteOneMsg
 };
