@@ -13,18 +13,16 @@ const getAllMsg = (req, res) => {
 
 //POST message
 const newMsg = (req, res) => {
-    let id = req.params.id; //get the msg id
-    let msg = req.params.message; //get the msg message
 
     //check if the id already exists in db
-    Msg.findOne({ id:id }, (err, data) => {
+    Msg.findOne({ id:req.params.id }, (err, data) => {
 
         //if this message is not in db, add it
         if (!data) {
             //create a new msg object using the Msg model and req.params
             const newMsg = new Msg({
-                id:id,
-                message:msg,
+                id:req.params.id,
+                message:req.params.message,
                 time: Date.now(),
             })
 
@@ -53,10 +51,9 @@ const deleteAllMsg = (req, res) => {
 
 //GET message based on id
 const getOneMsg = (req, res) => {
-    let id = req.params.id; //get the msg id
 
     //find the specific msg with that id
-    Msg.findOne({id:id}, (err, data) => {
+    Msg.findOne({id:req.params.id}, (err, data) => {
     if(err || !data) {
         return res.json({message: "Message can't be found, it doesn't exist."});
     }
@@ -66,11 +63,9 @@ const getOneMsg = (req, res) => {
 
 //PUT message based on id
 const updateMsg = (req, res) => {
-    let id = req.params.id; //get the msg id
-    let msg = req.params.message; //get the msg message
 
     //check if the id already exists in db
-    Msg.findOneAndUpdate({id:id}, { message:msg }, {new: true}, (err, data) => {
+    Msg.findOneAndUpdate({id:req.params.id}, {message:req.params.message}, {new: true}, (err, data) => {
 
         //if this message is in db, update it
         if (data) {
@@ -85,9 +80,8 @@ const updateMsg = (req, res) => {
 
 //DELETE message based on id
 const deleteOneMsg = (req, res) => {
-    let id = req.params.id; // get the id of msg to delete
 
-    Msg.deleteOne({id:id}, (err, data) => {
+    Msg.deleteOne({id:req.params.id}, (err, data) => {
     //if there's nothing to delete return a message
     if( data.deletedCount == 0) return res.json({message: "Message can't be deleted, it doesn't exist."});
     //else if there's an error, return the err message
