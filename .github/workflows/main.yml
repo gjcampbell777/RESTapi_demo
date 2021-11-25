@@ -9,8 +9,26 @@ on:
       - main
 
 jobs:
+  unit-tests:
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Check out code
+      - uses: actions/checkout@v2
+    
+      - name: Set up node 
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+    
+      - name: Install dependencies
+        run: npm install
+    
+      - name: Run tests 
+        run: npm test
+
   run-linter:
-    name: Run linters
+    needs: unit-tests
     runs-on: ubuntu-latest
 
     steps:
@@ -31,7 +49,7 @@ jobs:
           eslint: true
 
   build:
-    needs: run-linter
+    needs: [run-linter, unit-tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
