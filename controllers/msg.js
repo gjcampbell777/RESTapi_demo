@@ -36,7 +36,7 @@ const newMsg = (req, res) => {
         //if there's an error or the msg is in db, return an error message         
         }else{
             if(err) return res.json(`Something went wrong, please try again. ${err}`);
-            return res.json({message:"Message already exists"});
+            return res.json({message:"Message can't be posted. A message with that id already exists."});
         }
     })    
 };
@@ -58,7 +58,7 @@ const getOneMsg = (req, res) => {
     //find the specific msg with that id
     Msg.findOne({id:id}, (err, data) => {
     if(err || !data) {
-        return res.json({message: "Message doesn't exist."});
+        return res.json({message: "Message can't be found, it doesn't exist."});
     }
     else return res.json(data); //return the msg object if found
     });
@@ -94,7 +94,7 @@ const updateMsg = (req, res) => {
         //if there's an error or the msg is in db, return an error message         
         }else{
             if(err) return res.json(`Something went wrong, please try again. ${err}`);
-            return res.json({message:"Message doesn't exists"});
+            return res.json({message:"Message can't be updated, it doesn't exist."});
         }
     })    
 };
@@ -105,7 +105,7 @@ const deleteOneMsg = (req, res) => {
 
     Msg.deleteOne({id:id}, (err, data) => {
     //if there's nothing to delete return a message
-    if( data.deletedCount == 0) return res.json({message: "Message doesn't exist."});
+    if( data.deletedCount == 0) return res.json({message: "Message can't be deleted, it doesn't exist."});
     //else if there's an error, return the err message
     else if (err) return res.json(`Something went wrong, please try again. ${err}`);
     //else, return the success message
