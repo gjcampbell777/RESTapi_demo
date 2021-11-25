@@ -70,27 +70,11 @@ const updateMsg = (req, res) => {
     let msg = req.params.message; //get the msg message
 
     //check if the id already exists in db
-    Msg.findOne({ id:id }, (err, data) => {
+    Msg.findOneAndUpdate({id:id}, { message:msg }, {new: true}, (err, data) => {
 
-        //if this message is not in db, add it
+        //if this message is in db, update it
         if (data) {
-            //create a new msg object using the Msg model and req.params
-            const newMsg = new Msg({
-                id:id,
-                message:msg,
-                time: Date.now(),
-            })
-
-            Msg.deleteOne({id:id}, (err) => {
-            //if there's an error, return the err message
-            if (err) return res.json(`Something went wrong, please try again. ${err}`);
-            });
-
-            // save this object to database
-            newMsg.save((err, data)=>{
-                if(err) return res.json({Error: err});
-                return res.json(data);
-            })
+            return res.json(data);
         //if there's an error or the msg is in db, return an error message         
         }else{
             if(err) return res.json(`Something went wrong, please try again. ${err}`);
