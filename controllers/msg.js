@@ -5,9 +5,9 @@ const Msg = require('../models/msg'); //import msg model
 const getAllMsg = (req, res) => {
     Msg.find({}, (err, data)=>{
         if (err){
-            return res.json({Error: err});
+            return res.status(404).json({Error: err});
         }
-        return res.json(data);
+        return res.status(200).json(data);
     })
 };
 
@@ -28,13 +28,13 @@ const newMsg = (req, res) => {
 
             // save this object to database
             newMsg.save((err, data)=>{
-                if(err) return res.json({Error: err});
-                return res.json(data);
+                if(err) return res.status(404).json({Error: err});
+                return res.status(201).json(data);
             })
         //if there's an error or the msg is in db, return an error message         
         }else{
-            if(err) return res.json(`Something went wrong, please try again. ${err}`);
-            return res.json({message:"Message can't be posted. A message with that id already exists."});
+            if(err) return res.status(404).json(`Something went wrong, please try again. ${err}`);
+            return res.status(400).json({message:"Message can't be posted. A message with that id already exists."});
         }
     })    
 };
@@ -43,9 +43,9 @@ const newMsg = (req, res) => {
 const deleteAllMsg = (req, res) => {
     Msg.deleteMany({}, err => {
         if(err) {
-          return res.json({message: "Deletion of all messages failed"});
+          return res.status(404).json({message: "Deletion of all messages failed"});
         }
-        return res.json({message: "Deletion of all messages successful"});
+        return res.status(200).json({message: "Deletion of all messages successful"});
     })
 };
 
@@ -55,9 +55,9 @@ const getOneMsg = (req, res) => {
     //find the specific msg with that id
     Msg.findOne({id:req.params.id}, (err, data) => {
     if(err || !data) {
-        return res.json({message: "Message can't be found, it doesn't exist."});
+        return res.status(400).json({message: "Message can't be found, it doesn't exist."});
     }
-    else return res.json(data); //return the msg object if found
+    else return res.status(200).json(data); //return the msg object if found
     });
 };
 
@@ -69,11 +69,11 @@ const updateMsg = (req, res) => {
 
         //if this message is in db, update it
         if (data) {
-            return res.json(data);
+            return res.status(201).json(data);
         //if there's an error or the msg is in db, return an error message         
         }else{
-            if(err) return res.json(`Something went wrong, please try again. ${err}`);
-            return res.json({message:"Message can't be updated, it doesn't exist."});
+            if(err) return res.status(404).json(`Something went wrong, please try again. ${err}`);
+            return res.status(400).json({message:"Message can't be updated, it doesn't exist."});
         }
     })    
 };
@@ -83,11 +83,11 @@ const deleteOneMsg = (req, res) => {
 
     Msg.deleteOne({id:req.params.id}, (err, data) => {
     //if there's nothing to delete return a message
-    if( data.deletedCount == 0) return res.json({message: "Message can't be deleted, it doesn't exist."});
+    if( data.deletedCount == 0) return res.status(400).json({message: "Message can't be deleted, it doesn't exist."});
     //else if there's an error, return the err message
-    else if (err) return res.json(`Something went wrong, please try again. ${err}`);
+    else if (err) return res.status(404).json(`Something went wrong, please try again. ${err}`);
     //else, return the success message
-    else return res.json({message: "Message deleted."});
+    else return res.status(200).json({message: "Message deleted."});
     });
 };
 
