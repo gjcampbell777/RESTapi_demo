@@ -159,6 +159,18 @@ describe('DELETE /msg/:id', function () {
                 done();
             });
     });
+
+    it('respond with 404 error', function (done) {
+        request(app)
+            .delete('/msg/idisnonexisting')
+            .set('Accept', 'application/json')
+            .expect(404) //expecting HTTP status code
+            .expect('Content-Type', /json/) // expecting content value
+            .end((err) => {
+                if (err) return done(err);
+                done();
+            });
+    });
 });
 
 describe('DELETE /msg', function () {

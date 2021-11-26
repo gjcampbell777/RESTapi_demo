@@ -84,9 +84,9 @@ const deleteOneMsg = (req, res) => {
 
     Msg.deleteOne({id:req.params.id}, (err, data) => {
     //if there's nothing to delete return a message
-    if( data.deletedCount == 0) return res.status(400).json({message: "Message can't be deleted, it doesn't exist."});
+    if (err) return res.status(404).json(`Something went wrong, please try again. ${err}`);
     //else if there's an error, return the err message
-    else if (err) return res.status(404).json(`Something went wrong, please try again. ${err}`);
+    else if( data.deletedCount == 0) return res.status(400).json({message: "Message can't be deleted, it doesn't exist."});
     //else, return the success message
     else return res.status(200).json({message: "Message deleted."});
     });
