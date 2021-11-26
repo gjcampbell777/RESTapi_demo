@@ -32,10 +32,9 @@ time: {type:Date, required:true}`
 
 <p>Clone this repository and install dependencies</p>
 
-`> git clone git@github.com:gjcampbell777/RESTapi_demo.git
+> git clone git@github.com:gjcampbell777/RESTapi_demo.git
 > cd express-rest-api
-
-> npm install`
+> npm install
 
 ### Deploy
 
@@ -65,6 +64,9 @@ time: {type:Date, required:true}`
 
 ## REST API Documentation
 
+<p>All of the calls below can be done using services like Postman or through curl commands with <br>
+the URL https://gregs-rest-api-demo.herokuapp.com.</p>
+
 ### GET
 
 <p>To get info on all messages use</p>
@@ -83,7 +85,7 @@ time: {type:Date, required:true}`
 
 `/msg/:id`
 
-<p>The id info is taken from the parameter, the message info is taken from the body<br>
+<p>The id info is taken from the parameter, the message info is taken from a json body containing a message key<br>
 and the timestamp is taken from the API logic</p>
 
 ### PUT
@@ -92,7 +94,7 @@ and the timestamp is taken from the API logic</p>
 
 `/msg/:id`
 
-<p>The id info is taken from the parameter and the new message info is taken from the body</p>
+<p>The id info is taken from the parameter and the new message info is taken from a json body containing a message key</p>
 
 ### DELETE
 
@@ -105,6 +107,13 @@ and the timestamp is taken from the API logic</p>
 `/msg/:id`
 
 <p>The id info is taken from the parameter</p>
+
+<br><p>Example of desired inputs: <br>
+URL: `https://gregs-rest-api-demo.herokuapp.com/msg/5` body: `{"message":"test"}`</p>
+
+## Server Logs
+
+<p>Server logs can be found using the HEroku CLI command `heroku logs` within the repo once the web app is deployed</p>
 
 ## Licence
 MIT
