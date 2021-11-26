@@ -19,12 +19,12 @@ describe('POST /msg/:id', function () {
 
     it('respond with 201 created', function (done) {
         request(app)
-	    .post('/msg/1')
-	    .type('form')
-	    .send(data)
-	    .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(201, done);
+		    .post('/msg/1')
+		    .type('form')
+		    .send(data)
+		    .set('Accept', 'application/json')
+	        .expect('Content-Type', /json/)
+	        .expect(201, done);
     });
 
     it('respond with 400 not updated', function (done) {
