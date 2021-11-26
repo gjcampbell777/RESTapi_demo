@@ -1,6 +1,6 @@
 require('dotenv').config({ path: 'development.env' });
 
-const mongoose = require('mongoose'); //import mongoose
+const mongoose = require('mongoose');
 
 mongoose.connect(
     process.env.MONGODB_URI,

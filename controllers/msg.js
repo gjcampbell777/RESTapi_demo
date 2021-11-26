@@ -1,6 +1,5 @@
 const Msg = require('../models/msg'); //import msg model
 
-
 //GET all messages
 const getAllMsg = (req, res) => {
     Msg.find({}, (err, data)=>{
@@ -9,6 +8,20 @@ const getAllMsg = (req, res) => {
         }
         return res.status(200).json(data);
     })
+};
+
+//GET message based on id
+const getOneMsg = (req, res) => {
+
+    //find the specific msg with that id
+    Msg.findOne({id:req.params.id}, (err, data) => {
+        if(data) {
+            return res.status(200).json(data);
+        }else{
+            if(err) return res.status(404).json(`Something went wrong, please try again. ${err}`);
+            return res.status(400).json({message: "Message can't be found, it doesn't exist."});
+        }  
+    });
 };
 
 //POST message
@@ -39,30 +52,6 @@ const newMsg = (req, res) => {
     })    
 };
 
-//DELETE all messages
-const deleteAllMsg = (req, res) => {
-    Msg.deleteMany({}, err => {
-        if(err) {
-          return res.status(404).json({message: "Deletion of all messages failed"});
-        }
-        return res.status(200).json({message: "Deletion of all messages successful"});
-    })
-};
-
-//GET message based on id
-const getOneMsg = (req, res) => {
-
-    //find the specific msg with that id
-    Msg.findOne({id:req.params.id}, (err, data) => {
-        if(data) {
-            return res.status(200).json(data);
-        }else{
-            if(err) return res.status(404).json(`Something went wrong, please try again. ${err}`);
-            return res.status(400).json({message: "Message can't be found, it doesn't exist."});
-        }  
-    });
-};
-
 //PUT message based on id
 const updateMsg = (req, res) => {
 
@@ -78,6 +67,16 @@ const updateMsg = (req, res) => {
             return res.status(400).json({message:"Message can't be updated, it doesn't exist."});
         }
     })    
+};
+
+//DELETE all messages
+const deleteAllMsg = (req, res) => {
+    Msg.deleteMany({}, err => {
+        if(err) {
+          return res.status(404).json({message: "Deletion of all messages failed"});
+        }
+        return res.status(200).json({message: "Deletion of all messages successful"});
+    })
 };
 
 //DELETE message based on id
@@ -96,9 +95,9 @@ const deleteOneMsg = (req, res) => {
 //export controller functions
 module.exports = {
 	getAllMsg,
+    getOneMsg,
 	newMsg,
-	deleteAllMsg,
-	getOneMsg,
     updateMsg,
-	deleteOneMsg
+	deleteOneMsg,
+    deleteAllMsg
 };

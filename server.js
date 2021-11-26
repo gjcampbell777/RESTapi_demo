@@ -1,16 +1,15 @@
 require("./mongoConfig")
+
 const express = require('express');
 const routes = require('./routes/msg'); //import the routes
-
-const helmet = require('helmet'); //import helmet
-const compression = require('compression'); //import compression
-const morgan = require('morgan') //import morgan
+const helmet = require('helmet'); 
+const compression = require('compression'); 
+const morgan = require('morgan')
 
 const app = express();
+
 app.use(helmet());
 app.use(compression()); //compress all routes
-
-
 app.use(express.json()); //parses incoming requests with JSON payloads
 app.use(morgan('combined')) //prints logging when requests are made
 

@@ -23,7 +23,7 @@ time: {type:Date, required:true}`
 - [Express](https://expressjs.com/)
 - [Mongodb](https://www.mongodb.com)
 - [Mongoose](https://mongoosejs.com/)
-- [Morgan](https://github.com/expressjs/morgan), [Helmet](https://github.com/helmetjs/helmet)
+- [Morgan](https://github.com/expressjs/morgan), [Helmet](https://github.com/helmetjs/helmet), [Compression](https://www.npmjs.com/package/compression)
 - [Mocha](https://mochajs.org/#getting-started), [Chai](http://chaijs.com/api/), [Supertest](https://github.com/visionmedia/supertest)
 
 ## How to

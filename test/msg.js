@@ -1,9 +1,9 @@
 require("../mongoConfig")
 
 const routes = require('../routes/msg')
-
 const request = require('supertest');
 const express = require('express');
+
 const app = express();
 
 app.use(express.urlencoded({ extended: false }))
@@ -27,7 +27,7 @@ describe('POST /msg/:id', function () {
 	        .expect(201, done);
     });
 
-    it('respond with 400 not updated', function (done) {
+    it('respond with 400 not posted', function (done) {
         request(app)
             .post('/msg/1')
             .set('Accept', 'application/json')
@@ -39,7 +39,7 @@ describe('POST /msg/:id', function () {
             });
     });
 
-    it('respond with 400 not updated', function (done) {
+    it('respond with 404 error', function (done) {
         request(app)
             .post('/msg/idisnonexisting')
             .set('Accept', 'application/json')
@@ -56,7 +56,7 @@ describe('POST /msg/:id', function () {
  * Testing get message logic
  */
 describe('GET /msg', function () {
-    it('respond with json containing a list of all users', function (done) {
+    it('respond with 200 info recieved', function (done) {
         request(app)
             .get('/msg')
             .set('Accept', 'application/json')
@@ -66,7 +66,7 @@ describe('GET /msg', function () {
 });
 
 describe('GET /msg/:id', function () {
-    it('respond with json containing a single message', function (done) {
+    it('respond with 200 info recieved for one message', function (done) {
         request(app)
             .get('/msg/1')
             .set('Accept', 'application/json')
@@ -74,24 +74,24 @@ describe('GET /msg/:id', function () {
             .expect(200, done);
     });
 
-    it('respond with json message not found', function (done) {
+    it('respond with 400 message not found', function (done) {
         request(app)
             .get('/msg/2')
             .set('Accept', 'application/json')
-            .expect(400) //expecting HTTP status code
-            .expect('Content-Type', /json/) // expecting content value
+            .expect(400) 
+            .expect('Content-Type', /json/) 
             .end((err) => {
                 if (err) return done(err);
                 done();
             });
     });
 
-    it('respond with json message not found', function (done) {
+    it('respond with 404 error', function (done) {
         request(app)
             .get('/msg/idisnonexisting')
             .set('Accept', 'application/json')
-            .expect(404) //expecting HTTP status code
-            .expect('Content-Type', /json/) // expecting content value
+            .expect(404) 
+            .expect('Content-Type', /json/) 
             .end((err) => {
                 if (err) return done(err);
                 done();
@@ -103,7 +103,7 @@ describe('GET /msg/:id', function () {
  * Testing put message logic
  */
 describe('PUT /msg/:id', function () {
-    it('respond with json containing a single message', function (done) {
+    it('respond with 201 message updated', function (done) {
         request(app)
             .put('/msg/1')
             .set('Accept', 'application/json')
@@ -111,24 +111,24 @@ describe('PUT /msg/:id', function () {
             .expect(201, done);
     });
 
-    it('respond with json message not found', function (done) {
+    it('respond with 400 message not found', function (done) {
         request(app)
             .put('/msg/2')
             .set('Accept', 'application/json')
-            .expect(400) //expecting HTTP status code
-            .expect('Content-Type', /json/) // expecting content value
+            .expect(400) 
+            .expect('Content-Type', /json/) 
             .end((err) => {
                 if (err) return done(err);
                 done();
             });
     });
 
-    it('respond with json message not found', function (done) {
+    it('respond with 404 error', function (done) {
         request(app)
             .put('/msg/idisnonexisting')
             .set('Accept', 'application/json')
-            .expect(404) //expecting HTTP status code
-            .expect('Content-Type', /json/) // expecting content value
+            .expect(404) 
+            .expect('Content-Type', /json/) 
             .end((err) => {
                 if (err) return done(err);
                 done();
@@ -140,7 +140,7 @@ describe('PUT /msg/:id', function () {
  * Testing delete message logic
  */
 describe('DELETE /msg/:id', function () {
-    it('respond with json containing a single message', function (done) {
+    it('respond with 200 single message deleted', function (done) {
         request(app)
             .delete('/msg/1')
             .set('Accept', 'application/json')
@@ -148,7 +148,7 @@ describe('DELETE /msg/:id', function () {
             .expect(200, done);
     });
 
-    it('respond with json message not found', function (done) {
+    it('respond with 400 message not found', function (done) {
         request(app)
             .delete('/msg/1')
             .set('Accept', 'application/json')
@@ -162,7 +162,7 @@ describe('DELETE /msg/:id', function () {
 });
 
 describe('DELETE /msg', function () {
-    it('respond with json containing a list of all users', function (done) {
+    it('respond with 200 all messages deleted', function (done) {
         request(app)
             .delete('/msg')
             .set('Accept', 'application/json')
