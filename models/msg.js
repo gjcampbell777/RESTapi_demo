@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); //import mongoose
 
 // msg schema
 const MsgSchema = new mongoose.Schema({

@@ -1,11 +1,12 @@
 const express = require('express'); //import express
-const multer = require('multer');
+const multer = require('multer'); //import multer
 const upload = multer();
 
 const router = express.Router();
 
 const msgController = require('../controllers/msg');
 
+//Routes for all the desires calls and connected to their respective functions
 router.post('/msg', upload.none(), msgController.newMsg);
 
 router.get('/msg', msgController.getAllMsg);

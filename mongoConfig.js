@@ -1,7 +1,8 @@
-require('dotenv').config({ path: 'development.env' });
+require('dotenv').config({ path: 'development.env' }); // Grabs MONGODB URI
 
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); //import mongoose
 
+//Connects to the mongo databse attached to heroku app
 mongoose.connect(
     process.env.MONGODB_URI,
     (err) => {
