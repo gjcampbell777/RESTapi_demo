@@ -32,9 +32,9 @@ time: {type:Date, required:true}`
 
 <p>Clone this repository and install dependencies</p>
 
-> git clone git@github.com:gjcampbell777/RESTapi_demo.git
-> cd express-rest-api
-> npm install
+> git clone git@github.com:gjcampbell777/RESTapi_demo.git <br>
+> cd RESTapi_demo <br>
+> npm install <br>
 
 ### Deploy
 
